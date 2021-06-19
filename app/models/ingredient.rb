@@ -2,7 +2,7 @@
 
 # Ingredient Model
 class Ingredient < ApplicationRecord
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 36 }
   validates_uniqueness_of :name, case_sensitive: false
   validates :units,
             numericality: {
