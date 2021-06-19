@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Add Ingredient Table
 class AddIngredientTable < ActiveRecord::Migration[6.0]
   def change
     create_table :ingredients, id: :string, limit: 36 do |t|

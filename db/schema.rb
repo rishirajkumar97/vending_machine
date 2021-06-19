@@ -12,7 +12,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_619_150_818) do
+ActiveRecord::Schema.define(version: 20_210_619_182_826) do
+  create_table 'beverage_ingredients', id: :string, limit: 36, force: :cascade do |t|
+    t.string 'beverage_id', limit: 36, null: false
+    t.string 'ingredient_id', limit: 36, null: false
+    t.integer 'units', default: 0, null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['beverage_id'], name: 'index_beverage_ingredients_on_beverage_id'
+    t.index ['ingredient_id'], name: 'index_beverage_ingredients_on_ingredient_id'
+  end
+
   create_table 'beverages', id: :string, limit: 36, force: :cascade do |t|
     t.string 'beverage_name', limit: 36, null: false
     t.datetime 'created_at', precision: 6, null: false
@@ -27,4 +37,7 @@ ActiveRecord::Schema.define(version: 20_210_619_150_818) do
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['name'], name: 'index_ingredients_on_name'
   end
+
+  add_foreign_key 'beverage_ingredients', 'beverages'
+  add_foreign_key 'beverage_ingredients', 'ingredients'
 end

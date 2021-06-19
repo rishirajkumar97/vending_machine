@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Add Beverages Table
 class AddBeveragesTable < ActiveRecord::Migration[6.0]
   def change
     create_table :beverages, id: :string, limit: 36 do |t|

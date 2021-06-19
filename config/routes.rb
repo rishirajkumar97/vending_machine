@@ -6,6 +6,9 @@ Rails.application.routes.draw do
             except: %i[edit new update]
   resources :ingredients,
             path: 'ingredients',
-            except: %i[edit new update]
+            except: %i[edit new]
+  resources :vending,
+            path: 'vend',
+            only: :index
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
