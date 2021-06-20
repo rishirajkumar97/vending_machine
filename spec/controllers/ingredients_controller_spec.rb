@@ -25,10 +25,9 @@ RSpec.describe IngredientsController, type: :controller do
           receive(:as_json).and_return(ingredient)
       end
 
-      it 'creates adolescent flag configuration' do
+      it 'creates ingredients' do
         post :create, params: post_params
 
-        response_body = JSON.parse(response.body)
         expect(response.status).to eq 201
       end
     end
@@ -52,7 +51,7 @@ RSpec.describe IngredientsController, type: :controller do
         allow(controller).to receive(:retrieve_and_validate_put).and_return(ingredient)
         allow(ingredient).to receive(:update!).and_return(true)
       end
-      it 'updates the adolescent flag configuration' do
+      it 'updates the ingredient units' do
         put :update, params: put_data
         expect(response.status).to eq 204
       end
@@ -79,7 +78,7 @@ RSpec.describe IngredientsController, type: :controller do
     end
 
     context 'when request params are valid' do
-      it 'returns adolescent flag configuration items' do
+      it 'returns list of ingredients' do
         subject
         expect(response.status).to eq 200
         response_body = JSON.parse(response.body)
@@ -131,7 +130,7 @@ RSpec.describe IngredientsController, type: :controller do
                            .and_return('true')
       end
 
-      it 'returns adolescent flag configuration object' do
+      it 'returns ingredient object' do
         is_expected.to eq(ingredient)
       end
     end

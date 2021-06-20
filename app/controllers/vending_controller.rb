@@ -33,7 +33,7 @@ class VendingController < ApplicationController
       elsif current_units == 0
         empty_ingredient.push({ id: id, name: ing[:name] })
       else
-        error_msg = error_msg.push("Unable to Dispense, Insufficient Ingredients: #{ing[:name]} is less than required units. Please Refill!")     
+        error_msg = error_msg.push("Unable to Dispense, Insufficient Ingredients: #{ing[:name]} is less than required units. Please Refill!")
       end
     end
 

@@ -57,7 +57,7 @@ RSpec.describe BeveragesController, type: :controller do
         allow(Beverage).to receive(:find_by!).and_return(beverage)
         allow(beverage).to receive(:destroy!).and_return(true)
       end
-      it 'deletes policy text' do
+      it 'deletes beverage' do
         delete :destroy, params: params
         expect(response.status).to eq 204
       end
@@ -73,7 +73,7 @@ RSpec.describe BeveragesController, type: :controller do
       allow(Beverage).to receive(:all).and_return(beverage_response[:items])
     end
 
-    it 'returns policy text items' do
+    it 'returns beverage items' do
       subject
       expect(response.status).to eq 200
       response_body = JSON.parse(response.body)
