@@ -14,7 +14,7 @@ class IngredientsController < ApplicationController
   # Show method to retrieve a single ingredient by Id
   def show
     params.require(%i[id])
-    render json: Ingredient.find_by(id: params[:id])
+    render json: Ingredient.find_by!(id: params[:id])
   end
 
   # Create Method to post a new Ingredient using the necessary params
@@ -37,7 +37,7 @@ class IngredientsController < ApplicationController
   # Private: Validates few constraints in update action.
   def retrieve_and_validate_put
     params.require(%i[id units])
-    ingredient_config = Ingredient.find_by(id: params[:id])
+    ingredient_config = Ingredient.find_by!(id: params[:id])
     message = 'The requested ingredient cannot be' \
               'updated for this since its the same value'
     (raise ActionController::BadRequest, message) unless ingredient_config.units != params[:units].to_i

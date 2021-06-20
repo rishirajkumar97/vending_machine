@@ -40,7 +40,10 @@ class VendingController < ApplicationController
 
     update_ingredients(hash)
 
-    render json: { empty_ingredient: empty_ingredients, status: DISPENSED }, status: 200
+    output_json = { status: DISPENSED }
+    output_json[:empty_ingredients] = empty_ingredients if empty_ingredients.present?
+
+    render json: output_json
   end
 
   private

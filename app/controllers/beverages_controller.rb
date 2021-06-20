@@ -19,6 +19,14 @@ class BeveragesController < ApplicationController
   # show Method to revtrieve a single Beverage by ID
   def show
     params.require(%i[id])
-    render json: Beverage.find_by(id: params[:id])
+    render json: Beverage.find_by!(id: params[:id])
+  end
+
+  # to Delete a Beverage by ID
+  def destroy
+    params.require(%i[id])
+    beverage = Beverage.find_by!(id: params[:id])
+    beverage.destroy!
+    head :no_content
   end
 end

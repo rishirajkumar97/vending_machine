@@ -2,4 +2,5 @@
 
 class ApplicationController < ActionController::API
   include Paramable
+  include Rescuable
 end
