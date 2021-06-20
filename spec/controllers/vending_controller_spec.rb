@@ -8,9 +8,9 @@ RSpec.describe VendingController, type: :controller do
   let(:beverage) { double(:Beverage, beverages_mock) }
   let(:ingredient) { Ingredient.new(id: SecureRandom.uuid, name: 'tea', units: 10) }
   let(:ingredient_equal) { Ingredient.new(id: SecureRandom.uuid, name: 'tea', units: 1) }
-  let(:beverage_ingredient) { BeverageIngredient.new(id: SecureRandom.uuid ,ingredient_id: ingredient_equal.id, beverage_id: id, units: 1 )}
-  let(:beverage_ingredient_1) { BeverageIngredient.new(id: SecureRandom.uuid ,ingredient_id: ingredient_equal.id, beverage_id: id, units: 2 )}
-  let(:id) { SecureRandom.uuid}
+  let(:beverage_ingredient) { BeverageIngredient.new(id: SecureRandom.uuid, ingredient_id: ingredient_equal.id, beverage_id: id, units: 1) }
+  let(:beverage_ingredient_1) { BeverageIngredient.new(id: SecureRandom.uuid, ingredient_id: ingredient_equal.id, beverage_id: id, units: 2) }
+  let(:id) { SecureRandom.uuid }
   describe '#index' do
     context 'when request params are valid' do
       before do
