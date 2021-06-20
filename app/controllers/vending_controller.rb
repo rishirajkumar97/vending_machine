@@ -42,7 +42,6 @@ class VendingController < ApplicationController
 
     output_json = { status: DISPENSED }
     output_json[:empty_ingredients] = empty_ingredients if empty_ingredients.present?
-
     render json: output_json
   end
 
@@ -51,7 +50,7 @@ class VendingController < ApplicationController
   # Private method which completes the transaction once its ok to dispense the requireved beverage
   def update_ingredients(hash)
     hash.each do |key, value|
-      ingredient = Ingredient.find_by(id: key)
+      ingredient = Ingredient.find_by!(id: key)
       ingredient.update(units: value)
     end
   end
