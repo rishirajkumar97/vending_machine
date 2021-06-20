@@ -24,6 +24,13 @@ module Rescuable
     render_json_error(:bad_request, exception.message)
   end
 
+  # Public: Renders a json body with error status and message.
+  def render_json_error(status, message)
+    status = Rack::Utils::SYMBOL_TO_STATUS_CODE[status] if status.is_a? Symbol
+    json = { message: message }.compact
+    render json: json, status: status
+  end
+
   # Public: Handles service errors.
   def rescue_service_error
     render status: :internal_server_error, json: { error: 'Internal Server Error' }

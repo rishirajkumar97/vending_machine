@@ -34,7 +34,7 @@ class VendingController < ApplicationController
         empty_ingredient.push({ id: id, name: ing[:name] })
       else
         raise ActionController::BadRequest,
-              "Unable to Dispense, Insufficient Ingredients: #{ing[:name]} is less than required units"
+              "Unable to Dispense, Insufficient Ingredients: #{ing[:name]} is less than required units. Please Refill!"
       end
     end
 
