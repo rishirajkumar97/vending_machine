@@ -1,8 +1,8 @@
 
 swagger: '2.0'
 info:
-  title: Coffe Vending Machine API
-  description: Coffe Vending Machine API to be used by the consumer to vend / refill the inventory in a coffe machine
+  title: Coffee Vending Machine API
+  description: Coffee Vending Machine API to be used by the consumer to vend / refill the inventory in a coffee machine
   version: 1.0.0
 schemes:
   - http
@@ -17,13 +17,13 @@ tags:
   - name: ingredients
     description: Resource to create new ingredients or refill the ingredients.
   - name: Vending
-    description: This Endpoint Allows the user to dispense a coffe/beverage of the requested type. also notifies if on dispense which all ingredients have been emptied/hit 0.
+    description: This endpoint provides the user to dispense a Coffee/Beverage of the requested type. also notifies if on dispense which all ingredients have been emptied/hit 0.
 paths:
   /ingredients:
     get:
       tags:
         - ingredients
-      summary: Retrieves the list of ingredients in the coffe machine
+      summary: Retrieves the list of ingredients in the Coffee machine
       responses:
         '200':
           description: OK
@@ -367,7 +367,7 @@ definitions:
         minimum: 0
              
   CreateBeverage:
-    description: The Beverage for the coffe machine.
+    description: The Beverage for the Coffee machine.
     type: object
     properties:
       name:
