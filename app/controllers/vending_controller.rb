@@ -24,7 +24,7 @@ class VendingController < ApplicationController
     ingredients_present = Ingredient.where(id: ingredients_id).as_json.map do |i|
       { name: i['name'], id: i['id'], units: i['units'] }
     end
-
+    error_msg = []
     ingredients_present.each do |ing|
       id = ing[:id]
       current_units = ing[:units] - hash[id]
@@ -33,10 +33,11 @@ class VendingController < ApplicationController
       elsif current_units == 0
         empty_ingredient.push({ id: id, name: ing[:name] })
       else
-        raise ActionController::BadRequest,
-              "Unable to Dispense, Insufficient Ingredients: #{ing[:name]} is less than required units. Please Refill!"
+        error_msg = error_msg.push("Unable to Dispense, Insufficient Ingredients: #{ing[:name]} is less than required units. Please Refill!")     
       end
     end
+
+    raise ActionController::BadRequest, error_msg if error_msg.present?
 
     update_ingredients(hash)
 
