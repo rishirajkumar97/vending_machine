@@ -27,6 +27,19 @@ The Project uses RSpec for testing. To execute Rspec run:
 
 - Guide for Endpoints
 
-/beverages - GET ALL, GET by ID, DELETE by ID, POST
-/ingredients - GET ALL, Get by ID, DELETE by ID, POST , PUT
-/vend - GET by beverageID
+* /beverages - GET Endpoint to get the List of All the Beverages
+* /beverage - POST endpoint to create a new beverage
+* /beverages/{beverageId} - GET To get the details about that particular beverage
+* /beverages/{beverageId} - DELETE To Delete a Beverage
+
+
+* /ingredients - GET Endpoint to get the list of all ingredients
+* /ingredients - POST Endpoint to create a new beverage
+* /ingredients/{ingredientId} - GET Endpoint to get the details of a specific ingredient
+* /ingredients/{ingredientId} - PUT Endpoint to Refill the Inventory
+
+* /vend - GET by beverageID Dispenses a beverage associated with the provided beverage id.
+
+For In depth Swagger Please Visit api/swagger.yml for JSON Response Structures.
+
+
