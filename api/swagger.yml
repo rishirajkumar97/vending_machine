@@ -1,0 +1,434 @@
+
+swagger: '2.0'
+info:
+  title: Coffe Vending Machine API
+  description: Coffe Vending Machine API to be used by the consumer to vend / refill the inventory in a coffe machine
+  version: 1.0.0
+schemes:
+  - http
+  - https
+produces:
+  - application/json
+consumes:
+  - application/json
+tags:
+  - name: Beverages
+    description: The Beverage Resource Manipulation API. Provides a consumer to update or delete or create a new resource.
+  - name: ingredients
+    description: Resource to create new ingredients or refill the ingredients.
+  - name: Vending
+    description: This Endpoint Allows the user to dispense a coffe/beverage of the requested type. also notifies if on dispense which all ingredients have been emptied/hit 0.
+paths:
+  /ingredients:
+    get:
+      tags:
+        - ingredients
+      summary: Retrieves the list of ingredients in the coffe machine
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/IngredientsList'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Exception'
+        '401':
+          description: Authentication Failed
+          schema:
+            $ref: '#/definitions/Exception'
+        '500':
+          description: Server error
+          schema:
+            $ref: '#/definitions/Exception'
+    post:
+      tags:
+        - ingredients
+      summary: Create a new Ingredient
+      parameters:
+        - name: Request body
+          in: body
+          description: Post body for Ingredients
+          required: true
+          schema:
+            $ref: '#/definitions/CreateIngredient'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/Ingredient'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Exception'
+        '401':
+          description: Authentication Failed
+          schema:
+            $ref: '#/definitions/Exception'
+        '500':
+          description: Server error
+          schema:
+            $ref: '#/definitions/Exception'
+  /ingredients/{ingredientId}:
+    get:
+      tags:
+        - ingredients
+      summary: Retrieves one specific Ingredient.
+      parameters:
+        - name: ingredientId
+          description: The unique identifier of each ingredient
+          type: string
+          required: true
+          in: path
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Ingredient'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Exception'
+        '401':
+          description: Authentication Failed
+          schema:
+            $ref: '#/definitions/Exception'
+        '500':
+          description: Server error
+          schema:
+            $ref: '#/definitions/Exception'
+    put:
+      tags:
+        - ingredients
+      summary: Updates Ingredient Units
+      parameters:
+        - name: ingredientId
+          description: The unique identifier of each of Ingredient
+          type: string
+          in: path
+          required: true
+        - name: Request body
+          in: body
+          description: Request body for Ingredient Update
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateIngredient'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Exception'
+        '401':
+          description: Authentication Failed
+          schema:
+            $ref: '#/definitions/Exception'
+        '404':
+          description: Resource Not Found
+          schema:
+            $ref: '#/definitions/Exception'
+        '500':
+          description: Server error
+          schema:
+            $ref: '#/definitions/Exception'
+  /beverages:
+    get:
+      tags:
+        - Beverages
+      summary: Retrieve a list of Beverages
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Beverages'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Exception'
+        '401':
+          description: Authentication Failed
+          schema:
+            $ref: '#/definitions/Exception'
+        '500':
+          description: Server error
+          schema:
+            $ref: '#/definitions/Exception'
+    post:
+      tags:
+        - Beverages
+      summary: Creates new instance of Beverage
+      parameters:
+        - name: Request body
+          in: body
+          description: Post body for creating a beverage
+          required: true
+          schema:
+            $ref: '#/definitions/CreateBeverage'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/Beverage'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Exception'
+        '401':
+          description: Authentication Failed
+          schema:
+            $ref: '#/definitions/Exception'
+        '500':
+          description: Server error
+          schema:
+            $ref: '#/definitions/Exception'
+  /beverages/{beverageId}:
+    get:
+      tags:
+        - Beverages
+      summary: Retrieve a single Beverage
+      parameters:
+        - name: beverageId
+          description: The unique identifier of the beverage
+          type: string
+          required: true
+          in: path
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Beverage'
+        '401':
+          description: Authentication Failed
+          schema:
+            $ref: '#/definitions/Exception'
+        '404':
+          description: Resource Not Found
+          schema:
+            $ref: '#/definitions/Exception'
+        '500':
+          description: Server error
+          schema:
+            $ref: '#/definitions/Exception'
+    delete:
+      tags:
+        - Beverages
+      summary: Deletes specific instance of Beverages
+      parameters:
+        
+        - name: beverageId
+          description: The unique identifier of the beverage
+          type: string
+          in: path
+          required: true
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Exception'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Exception'
+        '404':
+          description: Resource Not Found
+          schema:
+            $ref: '#/definitions/Exception'
+        '500':
+          description: Server error
+          schema:
+            $ref: '#/definitions/Exception'
+  /vend:
+    get:
+      tags:
+        - Vending
+      summary: Action to be invoked when dispensing a beverage of a particular id
+      parameters:
+        - name: id
+          description: Unique Identifier of the beverage
+          type: string
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Vend'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Exception'
+        '401':
+          description: Authentication Failed
+          schema:
+            $ref: '#/definitions/Exception'
+        '500':
+          description: Server error
+          schema:
+            $ref: '#/definitions/Exception'
+definitions:
+  Units:
+    type: integer
+    title: units
+    description: The measure of the ingredient
+  IngredientsList:
+    type: object
+    description: A list of Ingredients.
+    properties:
+      items:
+        type: array
+        description: List of items.
+        items:
+          $ref: '#/definitions/Ingredient'
+      total_results:
+        type: integer
+        description: The Total number of ingredients
+  Ingredient:
+    description: A single ingredient item
+    type: object
+    properties:
+      id:
+        type: string
+        description: The unique identifier for ingredient.
+      units:
+        type: integer
+        description: the present number of Ingredient
+      updatedAt:
+        type: string
+        description: Timestamp for the resource updated time.
+  CreateIngredient:
+    description: Created the Ingredient.
+    type: object
+    properties:
+      name:
+        $ref: '#/definitions/IngredientName'
+      units:
+        $ref: '#/definitions/Units'
+    required:
+      - name
+      - units
+  UpdateIngredient:
+    description: Updates specific Ingredient with the given value.
+    type: object
+    properties:
+      units:
+        $ref: '#/definitions/Units'
+    required:
+      - units
+  IngredientName:
+    type: string
+    title: Ingredient Name
+    description: The name of the ingredient
+  Beverages:
+    type: object
+    description: Retrieve a list of beverages.
+    properties:
+      items:
+        type: array
+        description: List of items.
+        items:
+          $ref: '#/definitions/Beverage'
+      total_results:
+        type: integer
+        description: The total number of results available.
+  Beverage:
+    description: A Single Beverage.
+    type: object
+    properties:
+      id:
+        type: string
+        description: The unique identifier the beverage.
+      name:
+        type: string
+        description: The name of the beverage.
+      beverage_ingredients:
+        type: array
+        description: Corresponding Beverage Igredients List
+        items:
+          $ref: '#/definitions/BeverageIngredient'
+      createdAt:
+        type: string
+        description: Timestamp for the resource created time.
+      updatedAt:
+        type: string
+        description: Timestamp for the resource updated time.
+  BeverageIngredient:
+    description: Beverage along with its corresponding Ingredient Values
+    type: object
+    properties:
+      name:
+        type: string
+        description: The Name of the ingredient
+      units:
+        type: integer
+        description: The Units of the associated ingredient
+        minimum: 0
+             
+  CreateBeverage:
+    description: The Beverage for the coffe machine.
+    type: object
+    properties:
+      name:
+        type: string
+        description: The Name of the Beverage
+      beverage_ingredients:
+        type: array
+        description: Beverage with corresponding ingredient values.
+        items:
+          $ref: '#/definitions/beverageIngredientsBody'
+    required:
+      - beverage_ingredients
+      - name
+  beverageIngredientsBody:
+    description: Beverage with corresponding ingredient and its units
+    type: object
+    properties:
+      name:
+        type: string
+        description: The name of the associated ingredient
+      units:
+        type: integer
+        description: The units of the associated ingredient.
+        minimum: 0
+    required:
+      - name
+      - units
+  
+  Vend:
+    type: object
+    description: Response of the action vend.
+    properties:
+      empty_ingredients:
+        type: array
+        description: List of empty ingredient items.
+        items:
+          $ref: '#/definitions/EmptyIngredient'
+      totalResults:
+        type: integer
+        minimum: 0
+        description: The total number of results of the query.
+      status:
+        type: string
+        description: The Status of the ingredient if dispensed
+    required:
+       - status
+  EmptyIngredient:
+    description: Empty Ingredient Details
+    type: object
+    properties:
+      id:
+        type: string
+        description: The unique identifier for the ingredient
+      name:
+        type: string
+        description: The Name of the ingredient
+  Exception:
+    description: Representation of an Exception.
+    required:
+      - message
+    properties:
+      message:
+        description: Descriptive message providing context for the error condition.
+        type: string
