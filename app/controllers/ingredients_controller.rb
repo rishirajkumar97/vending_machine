@@ -28,6 +28,7 @@ class IngredientsController < ApplicationController
 
   # Update Method to Refill the Ingredients by the Users
   def update
+    params.require(%i[id units])
     retrieve_and_validate_put.update!(units: params[:units])
     head :no_content
   end
@@ -36,7 +37,6 @@ class IngredientsController < ApplicationController
 
   # Private: Validates few constraints in update action.
   def retrieve_and_validate_put
-    params.require(%i[id units])
     ingredient_config = Ingredient.find_by!(id: params[:id])
     message = 'The requested ingredient cannot be' \
               'updated for this since its the same value'

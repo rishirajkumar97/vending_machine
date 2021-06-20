@@ -17,7 +17,7 @@ RSpec.describe Beverage, type: :model do
     context 'validate maximum allowed length' do
       it 'validates maximum allowed length for fields' do
         should validate_length_of(:beverage_name).is_at_most(36)
-                                             .with_message('is too long (maximum is 36 characters)')
+                                                 .with_message('is too long (maximum is 36 characters)')
       end
     end
   end
